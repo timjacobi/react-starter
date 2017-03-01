@@ -1,9 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { StaticRouter, BrowserRouter, Route, Link } from "react-router-dom";
 import App from "./App";
+import isBrowser from "is-browser";
 
-export default () => (
-  <Router>
+const Router = isBrowser ? BrowserRouter : StaticRouter;
+
+export default ({ routerProps }) => (
+  <Router {...routerProps}>
     <App />
   </Router>
 );

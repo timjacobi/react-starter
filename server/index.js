@@ -18,16 +18,10 @@ module.exports = ({ NODE_ENV = "development" }) => {
   app.use(express.static(path.resolve(`${__dirname}/../public`)));
 
   app.get("*", (req, res) => {
-    const App = require("../client/components/App.jsx").default;
-    const { StaticRouter } = require("react-router");
+    const Root = require("../client/components/Root.jsx").default;
+    const routerProps = { location: req.url };
 
-    const context = React.createElement(
-      StaticRouter,
-      { location: req.url },
-      React.createElement(App)
-    );
-
-    return res.status(200).send(render(context));
+    return res.status(200).send(render(React.createElement(Root, routerProps)));
   });
 
   return app;
